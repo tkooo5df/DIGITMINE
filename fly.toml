@@ -1,0 +1,35 @@
+app = "vault-digital-lux"
+primary_region = "fra"
+
+[build]
+  dockerfile = "Dockerfile"
+  [build.args]
+    VITE_SUPABASE_URL = "https://jhvcuvblvtjncatmsczb.supabase.co"
+    VITE_SUPABASE_PUBLISHABLE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpodmN1dmJsdnRqbmNhdG1zY3piIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE3MjE1NzYsImV4cCI6MjA5NzI5NzU3Nn0.OCrQsmtCKxKcCPa5qzCdWTnHLGLR5cLvS89n6uS4OjY"
+    VITE_SUPABASE_PROJECT_ID = "jhvcuvblvtjncatmsczb"
+    VITE_USE_REAL_SUPABASE = "true"
+
+[env]
+  NODE_ENV = "production"
+  PORT = "3000"
+
+[[services]]
+  protocol = "tcp"
+  internal_port = 3000
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 1
+
+  [[services.ports]]
+    port = 80
+    handlers = ["http"]
+    force_https = true
+
+  [[services.ports]]
+    port = 443
+    handlers = ["tls", "http"]
+
+[[vm]]
+  memory = "512mb"
+  cpu_kind = "shared"
+  cpus = 1
